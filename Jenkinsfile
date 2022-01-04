@@ -18,7 +18,7 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("zen=='Non-blocking is better than blocking.'")
+        eventTrigger jmespathQuery("repository.url=='https://github.com/dylanmeh/Lab3_1-4_Jenkinsfile'")
     }
 
     
