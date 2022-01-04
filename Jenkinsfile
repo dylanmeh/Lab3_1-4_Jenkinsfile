@@ -16,9 +16,6 @@ spec:
         defaultContainer 'build'
         }
     }
-    triggers {
-        eventTrigger jmespathQuery("repository.url=='https://github.com/dylanmeh/Lab3_1-4_Jenkinsfile'")
-    }
     
     stages {
         stage ('buildStart Time Stage') {
