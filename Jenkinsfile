@@ -17,6 +17,11 @@ spec:
         }
     }
     
+    triggers {
+        eventTrigger jmespathQuery("zen=='Non-blocking is better than blocking.'")
+    }
+
+    
     stages {
         stage ('buildStart Time Stage') {
             steps {
