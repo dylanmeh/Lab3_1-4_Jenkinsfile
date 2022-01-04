@@ -14,19 +14,19 @@ spec:
     tty: true
     '''
         defaultContainer 'build'
-  }
-}
+        }
+    }
     stages {
-        stage ('buildStart stage') {
+        stage ('buildStart Time Stage') {
             steps {
-                buildEnd()
+                buildStart ()
             }
-    }      
+        }
         stage ('build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
-    }
+        }
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -42,10 +42,11 @@ spec:
                 sh './scripts/deliver.sh'
                 }
         }
-      stage ('buildEnd Stage') {
+        stage ('buildEnd Time Stage') {
             steps {
-                buildEnd()
-            }  
+                buildEnd ()
+            }
+        }
     }
         post {
             success {
