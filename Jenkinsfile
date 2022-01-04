@@ -16,6 +16,11 @@ spec:
         defaultContainer 'build'
         }
     }
+    
+    triggers {
+        eventTrigger jmespathQuery("repisitory.url=='https://api.github.com/repos/dylanmeh/Lab3_1-4_Jenkinsfile'")
+    }
+    
     stages {
         stage ('buildStart Time Stage') {
             steps {
