@@ -50,12 +50,12 @@ spec:
     }
         post {
             success {
-                buildResultsEmail("Sucessful")                
+                buildResultsEmail("Successful")                
             }
             
             failure {
                 buildResultsEmail("Failure")
-                   
+            }       
         }    
     }
 }
