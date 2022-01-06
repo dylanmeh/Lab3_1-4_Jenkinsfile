@@ -18,7 +18,7 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("repository.url=='https://github.com/dylanmeh/Lab3_1-4_Jenkinsfile'")
+        eventTrigger jmespathQuery("fact.id=='https://github.com/dylanmeh/Lab3_1-4_Jenkinsfile'")
     }
 
     
