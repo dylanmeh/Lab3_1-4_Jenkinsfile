@@ -22,7 +22,7 @@ spec:
     }
   
     stages {
-        stage ('Read event data) {
+        stage ('Read event data') {
             when { triggeredBy 'EventTriggerCause' }
             steps {
                 script {
