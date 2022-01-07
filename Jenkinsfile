@@ -22,26 +22,16 @@ spec:
     }
   
     stages {
-        stage ('unit Tests enabled') {
-            when { 
-                allOf {
-                triggeredBy 'EventTriggerCause';
-                equals expected: 'true', actual: getTriggerCauseEvent() 
-                }
+        stage ('Read event data') {
+            when { triggeredBy 'EventTriggerCause' }
             steps {
-                echo 'Kicking off unit tests'
-            }    
-        }
+                script {
+                    def eventCause = currentBuild.getBuildCauses("com.cloudbees.jenkins.plugins.pipeline.events.EventTriggerCause")
 
-        stage ('unit Tests disabled by user') {
-            when { 
-                allOf {
-                triggeredBy 'EventTriggerCause';
-                equals expected: 'false', actual: getTriggerCauseEvent()
+                    def unitTestEnable = eventCause.event.unitTestEnable
+
+                    echo "unitTestEnable=${unitTestEnable}"
                 }
-            }    
-            steps {
-                echo 'Unit tests are disabled by user'
             }
         }
         
@@ -84,5 +74,6 @@ spec:
             failure {
                 buildResultsEmail("Failure")
             }       
-    }    
+            
+    }
 }
