@@ -75,13 +75,13 @@ spec:
             }
         }
     }
-    post {
-        success {
-            buildResultsEmail("Successful")                
-        }
+        post {
+            success {
+                buildResultsEmail("Successful")                
+            }
             
-        failure {
-            buildResultsEmail("Failure")
-        }           
-    }
-}    
+            failure {
+                buildResultsEmail("Failure")
+            }           
+        }
+}
