@@ -18,34 +18,19 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("unitTestEnable=='false'")
+        eventTrigger jmespathQuery("unitTestEnable=='true'")
     }
   
     stages {
-        stage('Read api message for true value') {
-            when {
-                allOf {
-                    triggeredBy 'EventTriggerCause';
-                    equals expected: 'true', actual: getTriggerCauseEvent()
+        stage ('Read event data) {
+            when { triggeredBy 'EventTriggerCause' }
+            steps {
+                script {
+                    echo "Kicking off unit tests"
                 }
             }
-            steps {
-                echo 'Kicking off unit tests'
-            }    
         }
         
-        stage('Read api message for false value') {
-            when {
-                allOf {
-                    triggeredBy 'EventTriggerCause';
-                    equals expected: 'false', actual: getTriggerCauseEvent()
-                }
-            }
-            steps {
-                echo 'Unit Tests are disabled by user'
-            }
-        }
-
         stage ('buildStart Time Stage') {
             steps {
                 buildStart ()
