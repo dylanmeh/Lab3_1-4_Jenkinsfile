@@ -84,6 +84,5 @@ spec:
             failure {
                 buildResultsEmail("Failure")
             }       
-            
-    }
+        }    
 }
