@@ -26,7 +26,11 @@ spec:
             when { triggeredBy 'EventTriggerCause' }
             steps {
                 script {
-                    echo "Kicking off unit tests"
+                    def eventCause = currentBuild.getBuildCauses("com.cloudbees.jenkins.plugins.pipeline.events.EventTriggerCause")
+
+                    def unitTestEnable = eventCause.event.unitTestEnable
+
+                    echo "unitTestEnable=${unitTestEnable}"
                 }
             }
         }
