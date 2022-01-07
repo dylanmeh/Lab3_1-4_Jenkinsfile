@@ -27,7 +27,7 @@ spec:
                 allOf {
                 triggeredBy 'EventTriggerCause';
                 equals expected: 'true', actual: getTriggerCauseEvent() 
-                }
+            }
             steps {
                 echo 'Kicking off unit tests'
             }    
@@ -38,7 +38,6 @@ spec:
                 allOf {
                 triggeredBy 'EventTriggerCause';
                 equals expected: 'false', actual: getTriggerCauseEvent()
-                }
             }    
             steps {
                 echo 'Unit tests are disabled by user'
@@ -83,7 +82,6 @@ spec:
             
             failure {
                 buildResultsEmail("Failure")
-            }       
-        }    
+            }           
     }
 }    
