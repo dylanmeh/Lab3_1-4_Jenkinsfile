@@ -18,10 +18,34 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("fact.id=='https://github.com/dylanmeh/Lab3_1-4_Jenkinsfile'")
+        eventTrigger jmespathQuery("unitTestEnable=='false'")
     }
   
-    stages {  
+    stages {
+        stage('Read api message for true value') {
+            when {
+                allOf {
+                    triggeredBy 'EventTriggerCause';
+                    equals expected: 'true', actual: getTriggerCauseEvent()
+                }
+            }
+            steps {
+                echo 'Kicking off unit tests'
+            }    
+        }
+        
+        stage('Read api message for false value') {
+            when {
+                allOf {
+                    triggeredBy 'EventTriggerCause';
+                    equals expected: 'false', actual: getTriggerCauseEvent()
+                }
+            }
+            steps {
+                echo 'Unit Tests are disabled by user'
+            }
+        }
+
         stage ('buildStart Time Stage') {
             steps {
                 buildStart ()
