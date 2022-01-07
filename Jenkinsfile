@@ -25,7 +25,7 @@ spec:
         stage ('Read event data') {
             steps {
                 script {
-                    getTriggerCauseEvent()
+                    getTriggerCauseEvent
                 }
             }
         }
