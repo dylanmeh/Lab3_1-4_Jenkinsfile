@@ -25,8 +25,12 @@ spec:
         stage ('Read event data') {
             steps {
                 script {
-                    echo 'getTriggerCauseEvent()'
+                    def buildCauseInfo = currentBuild.getBuildCauses("com.cloudbees.jenkins.plugins.pipeline.events.EventTriggerCause")
+                    if (buildCauseInfo && buildCauseInfo[0])  {
+                    String artifactId = buildCauseInfo[0].event.unitTestEnable
+                    return artifactId
                 }
+                return "N/A"
             }
         }
         
