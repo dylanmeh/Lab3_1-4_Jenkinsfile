@@ -85,4 +85,5 @@ spec:
                 buildResultsEmail("Failure")
             }       
         }    
-}
+    }
+}    
