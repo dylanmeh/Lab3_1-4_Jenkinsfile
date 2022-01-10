@@ -26,20 +26,16 @@ spec:
             if (getTriggerCauseEvent.getTriggerCauseEvent() == 'prod')
                 echo 'enabling unit testing'
             }
-            return "N/A"
-            }    
+            return "N/A"    
         }
         stage ('Disable unit testing when event is dev') {
             if (getTriggerCauseEvent.getTriggerCauseEvent() == 'dev')
                 echo 'user disabled unit testing'
             }
             return "N/A"
-            }
         }        
         stage ('buildStart Time Stage') {
-            steps {
-                buildStart ()
-            }
+            buildStart ()
         }
         stage ('build') {
             sh 'mvn -B -DskipTests clean package'
@@ -56,9 +52,7 @@ spec:
             sh './scripts/deliver.sh'
         }
         stage ('buildEnd Time Stage') {
-            steps {
                 buildEnd ()
-            }
         }
     }
         post {
