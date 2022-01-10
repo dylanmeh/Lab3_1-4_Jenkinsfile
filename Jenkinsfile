@@ -18,7 +18,7 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("environment=='prod'")
+        eventTrigger jmespathQuery("environment=='dev'")
     }
   
     stages {
