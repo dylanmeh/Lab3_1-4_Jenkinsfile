@@ -22,11 +22,26 @@ spec:
     }
   
     stages {
-        stage ('Read event data') {
-            steps {
-                script {
-                    getTriggerCauseEvent.getTriggerCauseEvent()
+        stage ('Enable unit testing when event is prod') {
+            when {
+                allOf {
+                    triggeredBy 'EventTriggerCause';    
+                    equals expected: 'prod', getTriggerCauseEvent.getTriggerCauseEvent()
                 }
+            }
+            steps {
+                echo 'Kicking off unit tests'
+            }  
+        }
+        stage ('Disable unit testing when event is dev') {
+            when {
+                allOf {
+                    triggeredBy 'EventTriggerCause';
+                    equals expected: 'dev', getTriggerCauseEvent.getTriggerCauseEvent()
+                }
+            }
+            steps {
+                echo 'User disabled unit testing'
             }
         }
         
