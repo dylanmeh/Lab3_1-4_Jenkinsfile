@@ -23,42 +23,29 @@ spec:
   
     stages {
         stage ('Enable unit testing when event is prod') {
-            when {
-                allOf {
-                    triggeredBy 'EventTriggerCause';    
-                    equals (expected: 'prod', actual: getTriggerCauseEvent.getTriggerCauseEvent())
-                }
-            }
-            steps {
-                echo 'Kicking off unit tests'
-            }  
+            if (getTriggerCauseEvent.getTriggerCauseEvent() == 'prod')
+                echo 'enabling unit testing'
+            } else {
+                return "N/A"
+            }    
         }
         stage ('Disable unit testing when event is dev') {
-            when {
-                allOf {
-                    triggeredBy 'EventTriggerCause';
-                    equals (expected: 'dev', actual: getTriggerCauseEvent.getTriggerCauseEvent())
-                }
+            if (getTriggerCauseEvent.getTriggerCauseEvent() == 'dev')
+                echo 'user disabled unit testing'
+            } else {
+                return "N/A"
             }
-            steps {
-                echo 'User disabled unit testing'
-            }
-        }
-        
+        }        
         stage ('buildStart Time Stage') {
             steps {
                 buildStart ()
             }
         }
         stage ('build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
+            sh 'mvn -B -DskipTests clean package'
         }
         stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
+            sh 'mvn test'
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
@@ -66,9 +53,7 @@ spec:
             }
         }
         stage ('deploy') {
-            steps {
-                sh './scripts/deliver.sh'
-                }
+            sh './scripts/deliver.sh'
         }
         stage ('buildEnd Time Stage') {
             steps {
