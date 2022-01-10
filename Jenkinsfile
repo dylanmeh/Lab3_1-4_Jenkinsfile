@@ -1,5 +1,5 @@
 @Library("lab3") _
-pipeline {
+node {
     agent {
         kubernetes {
             yaml '''
@@ -21,7 +21,6 @@ spec:
         eventTrigger jmespathQuery("environment=='prod'")
     }
   
-    stages {
         stage ('Enable unit testing when event is prod') {
             when {
                 allOf {
@@ -75,7 +74,6 @@ spec:
                 buildEnd ()
             }
         }
-    }
         post {
             success {
                 buildResultsEmail("Successful")                
