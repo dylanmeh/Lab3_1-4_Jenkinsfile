@@ -21,7 +21,6 @@ spec:
         eventTrigger jmespathQuery("environment=='prod'")
     }
   
-    stages {
         stage ('Enable unit testing when event is prod') {
             if (getTriggerCauseEvent.getTriggerCauseEvent() == 'prod')
                 echo 'enabling unit testing'
@@ -54,7 +53,6 @@ spec:
         stage ('buildEnd Time Stage') {
                 buildEnd ()
         }
-    }
         post {
             success {
                 buildResultsEmail("Successful")                
@@ -62,7 +60,7 @@ spec:
             
             failure {
                 buildResultsEmail("Failure")
-            }       
-            
+            }            
+    
     }
 }
