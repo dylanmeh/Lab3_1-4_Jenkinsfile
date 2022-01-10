@@ -26,7 +26,7 @@ spec:
             when {
                 allOf {
                     triggeredBy 'EventTriggerCause';    
-                    equals (expected: 'prod', getTriggerCauseEvent.getTriggerCauseEvent())
+                    equals (expected: 'prod', actual: getTriggerCauseEvent.getTriggerCauseEvent())
                 }
             }
             steps {
@@ -37,7 +37,7 @@ spec:
             when {
                 allOf {
                     triggeredBy 'EventTriggerCause';
-                    equals (expected: 'dev', getTriggerCauseEvent.getTriggerCauseEvent())
+                    equals (expected: 'dev', actual: getTriggerCauseEvent.getTriggerCauseEvent())
                 }
             }
             steps {
