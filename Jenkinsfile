@@ -25,15 +25,15 @@ spec:
         stage ('Enable unit testing when event is prod') {
             if (getTriggerCauseEvent.getTriggerCauseEvent() == 'prod')
                 echo 'enabling unit testing'
-            } else {
-                return "N/A"
+            }
+            return "N/A"
             }    
         }
         stage ('Disable unit testing when event is dev') {
             if (getTriggerCauseEvent.getTriggerCauseEvent() == 'dev')
                 echo 'user disabled unit testing'
-            } else {
-                return "N/A"
+            }
+            return "N/A"
             }
         }        
         stage ('buildStart Time Stage') {
