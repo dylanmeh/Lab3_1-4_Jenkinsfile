@@ -1,21 +1,5 @@
 @Library("lab3") _
-pipeline {
-    agent {
-        kubernetes {
-            yaml '''
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: build
-    image: 'maven:3.8.3-jdk-11'
-    command:
-    - cat
-    tty: true
-    '''
-        defaultContainer 'build'
-        }
-    }
+node ('build') {
     
     triggers {
         eventTrigger jmespathQuery("environment=='prod'")
