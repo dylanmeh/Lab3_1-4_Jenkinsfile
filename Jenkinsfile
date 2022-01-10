@@ -1,30 +1,64 @@
 @Library("lab3") _
-node ('build') {
+pipeline {
+    agent {
+        kubernetes {
+            yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: build
+    image: 'maven:3.8.3-jdk-11'
+    command:
+    - cat
+    tty: true
+    '''
+        defaultContainer 'build'
+        }
+    }
     
     triggers {
         eventTrigger jmespathQuery("environment=='prod'")
     }
   
+    stages {
         stage ('Enable unit testing when event is prod') {
-            if (getTriggerCauseEvent.getTriggerCauseEvent() == 'prod')
-                echo 'enabling unit testing'
+            when {
+                allOf {
+                    triggeredBy 'EventTriggerCause';    
+                    equals (expected: 'prod', actual: getTriggerCauseEvent.getTriggerCauseEvent())
+                }
             }
-            return "N/A"    
+            steps {
+                echo 'Kicking off unit tests'
+            }  
         }
         stage ('Disable unit testing when event is dev') {
-            if (getTriggerCauseEvent.getTriggerCauseEvent() == 'dev')
-                echo 'user disabled unit testing'
+            when {
+                allOf {
+                    triggeredBy 'EventTriggerCause';
+                    equals (expected: 'dev', actual: getTriggerCauseEvent.getTriggerCauseEvent())
+                }
             }
-            return "N/A"
-        }        
+            steps {
+                echo 'User disabled unit testing'
+            }
+        }
+        
         stage ('buildStart Time Stage') {
-            buildStart ()
+            steps {
+                buildStart ()
+            }
         }
         stage ('build') {
-            sh 'mvn -B -DskipTests clean package'
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
         }
         stage('Test') {
-            sh 'mvn test'
+            steps {
+                sh 'mvn test'
+            }
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
@@ -32,11 +66,16 @@ node ('build') {
             }
         }
         stage ('deploy') {
-            sh './scripts/deliver.sh'
+            steps {
+                sh './scripts/deliver.sh'
+                }
         }
         stage ('buildEnd Time Stage') {
+            steps {
                 buildEnd ()
+            }
         }
+    }
         post {
             success {
                 buildResultsEmail("Successful")                
@@ -44,7 +83,7 @@ node ('build') {
             
             failure {
                 buildResultsEmail("Failure")
-            }            
-    
+            }       
+            
     }
 }
