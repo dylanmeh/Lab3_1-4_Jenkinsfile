@@ -18,7 +18,7 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("environment=='prod'")
+        eventTrigger jmespathQuery("unitTestEnable=='true'")
     }
   
     stages {
@@ -26,7 +26,7 @@ spec:
             when {
                 allOf {
                     triggeredBy 'EventTriggerCause';    
-                    equals (expected: 'prod', actual: getTriggerCauseEvent.getTriggerCauseEvent())
+                    equals (expected: 'true', actual: getTriggerCauseEvent.getTriggerCauseEvent())
                 }
             }
             steps {
@@ -37,7 +37,7 @@ spec:
             when {
                 allOf {
                     triggeredBy 'EventTriggerCause';
-                    equals (expected: 'dev', actual: getTriggerCauseEvent.getTriggerCauseEvent())
+                    equals (expected: 'false', actual: getTriggerCauseEvent.getTriggerCauseEvent())
                 }
             }
             steps {
