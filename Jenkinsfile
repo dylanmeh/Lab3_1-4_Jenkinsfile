@@ -18,7 +18,7 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("unitTestEnable=='true'", "unitTestEnable"=='false')
+        eventTrigger jmespathQuery("unitTestEnable=='true'" || "unitTestEnable"=='false')
     }
   
     stages {
