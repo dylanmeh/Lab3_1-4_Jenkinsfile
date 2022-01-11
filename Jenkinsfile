@@ -30,7 +30,7 @@ spec:
                 }
             }
             steps {
-                echo 'Kicking off unit tests'
+                echo 'Kicking off unit tests.'
             }  
         }
         stage ('Disable unit testing when event is dev') {
