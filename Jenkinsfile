@@ -18,11 +18,11 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("unitTestEnable=='true'")
+        eventTrigger jmespathQuery("unitTestEnable=='true'", "unitTestEnable"=='false')
     }
   
     stages {
-        stage ('Enable unit testing when event is prod') {
+        stage ('Enable unit testing when payload object value is true') {
             when {
                 allOf {
                     triggeredBy 'EventTriggerCause';    
@@ -33,7 +33,7 @@ spec:
                 echo 'Kicking off unit tests'
             }  
         }
-        stage ('Disable unit testing when event is dev') {
+        stage ('Disable unit testing when payload object value is false') {
             when {
                 allOf {
                     triggeredBy 'EventTriggerCause';
