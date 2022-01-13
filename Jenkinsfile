@@ -18,7 +18,7 @@ spec:
     }
     
     triggers {
-        eventTrigger jmespathQuery("labs='lab5'")
+        eventTrigger jmespathQuery("labs.lab5='5'")
     }
   
     stages {
@@ -56,6 +56,12 @@ spec:
             }
         }
         stage('Test') {
+             when {
+                allOf {
+                    triggeredBy 'EventTriggerCause';
+                    equals (expected: 'true', actual: getTriggerCauseEvent.getTriggerCauseEvent())
+                }
+            }
             steps {
                 sh 'mvn test'
             }
