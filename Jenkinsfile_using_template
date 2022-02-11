@@ -1,0 +1,6 @@
+@Library("lab3") _
+mavenBuildTemplate(branch: 'main, scmUrl: 'https://github.com/dylanmeh/Lab2_Java-App.git',
+                   email: 'ted.fenn@concanon.com', serverPort: '22',
+                   developmentServer: 'dev-project_name.mycompany.com',
+                   stagingServer: 'staging-project_name.mycompany.com',
+                   prodServer: 'prod-project_name.mycompany.com')
